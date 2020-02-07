@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ConsolePOC
 {
@@ -9,8 +10,19 @@ namespace ConsolePOC
     {
         static void Main(string[] args)
         {
-            NewtonsoftEnumConversionPOC();
+            ParseCultureInvariantPOC();
         }
+
+        #region Parse Culture Invariant POC
+        public static void ParseCultureInvariantPOC()
+        {
+            var doubleStr = "7.1";
+            var value = double.Parse(doubleStr, CultureInfo.InvariantCulture);
+            Console.WriteLine(value);
+        }
+
+
+        #endregion
 
         #region Newtonsoft Enum Conversion POC
         private static void NewtonsoftEnumConversionPOC()
