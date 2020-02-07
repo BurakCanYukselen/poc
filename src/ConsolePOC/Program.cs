@@ -9,10 +9,37 @@ namespace ConsolePOC
     {
         static void Main(string[] args)
         {
-            StringToEnumFlagPOC();
-            Console.ReadKey();
+            NewtonsoftEnumConversionPOC();
         }
 
+        #region Newtonsoft Enum Conversion POC
+        private static void NewtonsoftEnumConversionPOC()
+        {
+            var json1 = "{\"Enum\" : 2}";
+            var json2 = "{\"Enum\" : 5}";
+
+            var conversion1 = JsonConvert.DeserializeObject<NewtonsoftEnumConversionClass>(json1);
+            var conversion2 = JsonConvert.DeserializeObject<NewtonsoftEnumConversionClass>(json2);
+
+            Console.WriteLine($"conversion 1 Enum string: {conversion1.Enum.ToString()}");
+            Console.WriteLine($"conversion 2 Enum string: {conversion2.Enum.ToString()}");
+
+            Console.WriteLine($"Cast 2 to Enum(B) : {((NewtonsoftEnumConversionEnum)2).ToString()}");
+            Console.WriteLine($"Cast 5 to Enum(not exist) : {((NewtonsoftEnumConversionEnum)5).ToString()}");
+        }
+
+        public class NewtonsoftEnumConversionClass
+        {
+            public NewtonsoftEnumConversionEnum Enum { get; set; }
+        }
+
+        public enum NewtonsoftEnumConversionEnum
+        {
+            None = 0,
+            A = 1,
+            B = 2
+        }
+        #endregion
 
         #region String To Enum Flag POC
 
