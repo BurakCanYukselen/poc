@@ -10,8 +10,18 @@ namespace ConsolePOC
     {
         static void Main(string[] args)
         {
-            ParseCultureInvariantPOC();
+            StringFormatPOC();
         }
+
+        #region String Format POC
+
+        public static void StringFormatPOC()
+        {
+            Console.WriteLine(string.Format("{0}.dbo.{1}", null, "table"));
+        }
+
+        #endregion
+
 
         #region Parse Culture Invariant POC
         public static void ParseCultureInvariantPOC()
