@@ -1,7 +1,9 @@
 ﻿using ConsolePOC.Extensions;
+using Dapper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Globalization;
 
 namespace ConsolePOC
@@ -10,8 +12,28 @@ namespace ConsolePOC
     {
         static void Main(string[] args)
         {
-            StringFormatPOC();
+            DapperBulkInsertPOC();
         }
+
+        // Result = Not Bulk implicitly loop insert
+        #region Dapper Bulk Insert POC
+        public static void DapperBulkInsertPOC()
+        {
+            var conString = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=Test;Integrated Security=True";
+
+            var guidList = new List<object>();
+            for (int i = 0; i < 1000; i++)
+                guidList.Add(new { value = Guid.NewGuid() });
+
+            var query = @"insert into BulkInsertTest(Guid) values(@value)";
+
+            using (var conn = new SqlConnection(conString))
+            {
+                conn.Open();
+                conn.Execute(query, guidList);
+            }
+        }
+        #endregion
 
         #region String Format POC
 
@@ -21,7 +43,6 @@ namespace ConsolePOC
         }
 
         #endregion
-
 
         #region Parse Culture Invariant POC
         public static void ParseCultureInvariantPOC()
