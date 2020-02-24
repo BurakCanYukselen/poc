@@ -1,19 +1,54 @@
 ﻿using ConsolePOC.Extensions;
 using Dapper;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Threading;
 
 namespace ConsolePOC
 {
     static class Program
     {
+
         static void Main(string[] args)
         {
-            DapperBulkInsertPOC();
+            SystemTimerOperationsPOC();
         }
+
+        #region System.Timer Operations POC
+        private static void SystemTimerOperationsPOC()
+        {
+            Console.WriteLine("başladı");
+
+            int _idleTimeout = (int)TimeSpan.FromSeconds(2).TotalMilliseconds;
+            Timer _idleTimer = new Timer(new TimerCallback((s) => { Console.WriteLine("time"); }), null, int.MaxValue, 0);
+
+
+            Console.WriteLine("3.sn bekle");
+            Console.WriteLine("time yazmaması lazım");
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+
+            Console.WriteLine("timer start 2sn sonra");
+            _idleTimer.Change(_idleTimeout, 0);
+
+            Console.WriteLine("3sn bekle");
+            Console.WriteLine("3sn sonra time yazması lazım");
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+
+
+            Console.WriteLine("timer durdur");
+            _idleTimer.Change(int.MaxValue, 0);
+
+            Console.WriteLine("3sn bekle");
+            Console.WriteLine("time yazmaması lazım");
+            Thread.Sleep(TimeSpan.FromSeconds(3));
+
+            Console.WriteLine("kapandı");
+        }
+        #endregion
 
         // Result = Not Bulk implicitly loop insert
         #region Dapper Bulk Insert POC
