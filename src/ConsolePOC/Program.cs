@@ -1,7 +1,6 @@
 ﻿using ConsolePOC.Extensions;
 using Dapper;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -15,8 +14,23 @@ namespace ConsolePOC
 
         static void Main(string[] args)
         {
-            SystemTimerOperationsPOC();
+            DatetimeUTCLocalComparison();
         }
+
+        #region Datetime UTC Local Comparison
+        private static void DatetimeUTCLocalComparison()
+        {
+            var endDate = new DateTime(2020, 2, 13, 21, 0, 0, DateTimeKind.Utc);
+            var deliveryDate = new DateTime(2020, 2, 14, 12, 14, 32, DateTimeKind.Utc);
+
+            Console.WriteLine($"endDate: {endDate}");
+            Console.WriteLine($"deliveryDate: {deliveryDate}");
+
+            Console.WriteLine("----");
+
+            Console.WriteLine($"IsEqual: {deliveryDate.ToLocalTime().Date <= endDate.ToLocalTime().Date }");
+        }
+        #endregion
 
         #region System.Timer Operations POC
         private static void SystemTimerOperationsPOC()
