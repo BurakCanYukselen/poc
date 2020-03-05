@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,6 +25,16 @@ namespace ConsolePOC.Extensions
         {
             Predicate<TSource> predicate = property => target.Contains(property);
             return source.Where(p => predicate(selector.Invoke(p)));
+        }
+
+        public static string ToJson(this object source, Formatting formatting = Formatting.Indented)
+        {
+            return JsonConvert.SerializeObject(source, formatting);
+        }
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+        {
+            return source.GroupBy(selector).Select(p => p.First());
         }
     }
 }

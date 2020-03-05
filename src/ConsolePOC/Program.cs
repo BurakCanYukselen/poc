@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 
 namespace ConsolePOC
@@ -14,8 +15,33 @@ namespace ConsolePOC
 
         static void Main(string[] args)
         {
-            DatetimeUTCLocalComparison();
+            ListDistinctPOC();
         }
+
+        #region List Distinct POC
+        public static void ListDistinctPOC()
+        {
+            var a = new ListDistinctPOC_Class { Id = 1, Name = "A" };
+            var a1 = new ListDistinctPOC_Class { Id = 1, Name = "A" };
+            var a2 = new ListDistinctPOC_Class { Id = 1, Name = "A" };
+
+            var b = new ListDistinctPOC_Class { Id = 2, Name = "B" };
+            var c = new ListDistinctPOC_Class { Id = 3, Name = "C" };
+
+            var rawlist = new List<ListDistinctPOC_Class>() { a, a1, a2, b, c };
+            var distinctList = rawlist.ToList().DistinctBy(p => p.Id);
+
+            Console.WriteLine(distinctList.ToJson(Formatting.Indented));
+        }
+
+        public class ListDistinctPOC_Class
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+
+        #endregion
 
         #region Datetime UTC Local Comparison
         private static void DatetimeUTCLocalComparison()
@@ -183,5 +209,7 @@ namespace ConsolePOC
         }
 
         #endregion
+
+
     }
 }
