@@ -32,6 +32,11 @@ namespace ConsolePOC.Extensions
             return JsonConvert.SerializeObject(source, formatting);
         }
 
+        public static TResult JsonTo<TResult>(this string source)
+        {
+            return JsonConvert.DeserializeObject<TResult>(source);
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
         {
             return source.GroupBy(selector).Select(p => p.First());
