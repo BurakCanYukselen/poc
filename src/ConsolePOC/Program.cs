@@ -15,8 +15,43 @@ namespace ConsolePOC
 
         static void Main(string[] args)
         {
-            ListDistinctPOC();
+            ListLeftJoinPOC();
         }
+
+        #region List Left Join POC
+
+        private static void ListLeftJoinPOC()
+        {
+            var a = new List<ListLeftJoinPOC_A>() {
+                new ListLeftJoinPOC_A { Id = 1, Name="A_1" },
+                new ListLeftJoinPOC_A { Id = 2, Name="A_2" },
+                new ListLeftJoinPOC_A { Id = 3, Name="A_3" },
+                new ListLeftJoinPOC_A { Id = 4, Name="A_4" },
+            };
+            var b = new List<ListLeftJoinPOC_B>() {
+                new ListLeftJoinPOC_B { Id = 1, Name="B_1" },
+                new ListLeftJoinPOC_B { Id = 3, Name="B_3" },
+            };
+
+            var c = a.ToHashSet().LeftJoin(b.ToHashSet(), a => a.Id, b => b.Id)
+                                 .Select(c => new { Id = c.Left.Id, Name = $"{c.Left.Name}-{c.Right?.Name ?? "null"}" })
+                                 .OrderBy(c => c.Id);
+
+            Console.WriteLine(c.ToJson());
+        }
+
+        public class ListLeftJoinPOC_A
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        public class ListLeftJoinPOC_B
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+        #endregion
 
         #region List Distinct POC
         public static void ListDistinctPOC()
