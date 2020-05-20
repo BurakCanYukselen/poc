@@ -15,8 +15,22 @@ namespace ConsolePOC
 
         static void Main(string[] args)
         {
-            ListLeftJoinPOC();
+            TimezoneChangeFromUTCtoTargetTimezonePOC();
         }
+
+        #region Timezone Change from UTC to Target Timezone POC
+        static void TimezoneChangeFromUTCtoTargetTimezonePOC()
+        {
+            var timeZoneId = "Pacific Standard Time";
+            var timezoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
+            var utcTime = DateTime.UtcNow;
+            var pacificTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, timezoneInfo);
+
+            Console.WriteLine($"UTC Time: {utcTime}");
+            Console.WriteLine($"Pacific Time: {pacificTime}");
+
+        }
+        #endregion
 
         #region List Left Join POC
 
