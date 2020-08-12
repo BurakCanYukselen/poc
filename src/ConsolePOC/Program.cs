@@ -4,9 +4,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
+using System.Web;
 
 namespace ConsolePOC
 {
@@ -15,7 +18,7 @@ namespace ConsolePOC
 
         static void Main(string[] args)
         {
-            TimezoneChangeFromUTCtoTargetTimezonePOC();
+            ListLeftJoinPOC();
         }
 
         #region Timezone Change from UTC to Target Timezone POC
@@ -45,13 +48,13 @@ namespace ConsolePOC
             var b = new List<ListLeftJoinPOC_B>() {
                 new ListLeftJoinPOC_B { Id = 1, Name="B_1" },
                 new ListLeftJoinPOC_B { Id = 3, Name="B_3" },
+                new ListLeftJoinPOC_B { Id = 3, Name="B_33" },
             };
-
-            var c = a.ToHashSet().LeftJoin(b.ToHashSet(), a => a.Id, b => b.Id)
-                                 .Select(c => new { Id = c.Left.Id, Name = $"{c.Left.Name}-{c.Right?.Name ?? "null"}" })
-                                 .OrderBy(c => c.Id);
+            
+            var c = a.ToHashSet().LeftJoin(b.ToHashSet(), a => a.Id, b => b.Id);
 
             Console.WriteLine(c.ToJson());
+
         }
 
         public class ListLeftJoinPOC_A

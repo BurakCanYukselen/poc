@@ -7,8 +7,13 @@ namespace ConsolePOC.Extensions
 {
     public static class ListExtensions
     {
-
         public static IEnumerable<(TLeft Left, TRight Right)> LeftJoin<TLeft, TRight, TKey>(this IEnumerable<TLeft> left, IEnumerable<TRight> right, Func<TLeft, TKey> leftKeySelector, Func<TRight, TKey> rightKeySelector)
+        {
+            return left.GroupJoin(right, leftKeySelector, rightKeySelector, (leftList, rightList) => new { leftList, rightList })
+                       .SelectMany(list => list.rightList.DefaultIfEmpty(), (source, collection) => (Left: source.leftList, Right: collection));
+        }
+        
+        public static IEnumerable<(TLeft Left, TRight Right)> LeftJoin_SlowVersion<TLeft, TRight, TKey>(this IEnumerable<TLeft> left, IEnumerable<TRight> right, Func<TLeft, TKey> leftKeySelector, Func<TRight, TKey> rightKeySelector)
         {
             return left.Join(right, leftKeySelector, rightKeySelector, (leftList, rightList) => (Left: leftList, Right: rightList))
                        .Concat(left.GroupJoin(right, leftKeySelector, rightKeySelector, (leftList, rightList) => new { leftList, rightList })
