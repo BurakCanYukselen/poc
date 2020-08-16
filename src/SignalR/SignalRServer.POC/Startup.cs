@@ -20,7 +20,7 @@ namespace SignalRServer.POC
             services.AddSignalR();
 
             services.AddSingleton(new MessagingConnection());
-            services.AddSingleton<HubHelper<MessagingHub, MessagingConnection>>();
+            services.AddSingleton<MessagingHubManager>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

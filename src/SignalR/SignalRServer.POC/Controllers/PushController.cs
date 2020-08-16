@@ -11,18 +11,18 @@ namespace SignalRServer.POC.Controllers
     [Route("api/push")]
     public class PushController : ControllerBase
     {
-        private readonly HubHelper<MessagingHub, MessagingConnection> _messagingHub;
+        private readonly MessagingHubManager _messagingHubManager;
 
-        public PushController(HubHelper<MessagingHub, MessagingConnection> messagingHub)
+        public PushController(MessagingHubManager messagingHubManager)
         {
-            _messagingHub = messagingHub;
+            _messagingHubManager = messagingHubManager;
         }
 
         [HttpPost]
         [Route("Broadcast")]
         public async Task<IActionResult> BroadcastMessage([FromBody] MessagingHubModel message)
         {
-            _messagingHub.Broadcast(new MessagingHubModel()
+            _messagingHubManager.Broadcast(new MessagingHubModel()
             {
                 From = "Server",
                 To = "Everybody",
@@ -35,7 +35,7 @@ namespace SignalRServer.POC.Controllers
         [Route("to")]
         public async Task<IActionResult> MessageTo([FromBody] MessagingHubModel message)
         {
-            _messagingHub.Send(new MessagingHubModel()
+            _messagingHubManager.Send(new MessagingHubModel()
             {
                 From = "Server",
                 To = message.To,

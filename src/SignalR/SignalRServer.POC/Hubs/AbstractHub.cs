@@ -7,11 +7,11 @@ using SignalRServer.POC.Models;
 
 namespace SignalRServer.POC.Hubs
 {
-    public abstract class AbstractHub<TMessageModel> : Hub
+    public abstract class AbstractHub<TConnectionKey> : Hub
     {
-        private readonly ConnectionMapping<string> _connections;
+        private readonly ConnectionMapping<TConnectionKey> _connections;
 
-        public AbstractHub(ConnectionMapping<string> connections)
+        public AbstractHub(ConnectionMapping<TConnectionKey> connections)
         {
             _connections = connections;
         }
@@ -19,7 +19,8 @@ namespace SignalRServer.POC.Hubs
         public override Task OnConnectedAsync()
         {
             var userid = Context.GetContextHeaderValue("userid");
-            _connections.Add(userid, Context.ConnectionId);
+            var connectionKey = userid.ConvertTo<TConnectionKey>();
+            _connections.Add(connectionKey, Context.ConnectionId);
             
             return base.OnConnectedAsync();
         }
@@ -27,7 +28,8 @@ namespace SignalRServer.POC.Hubs
         public override Task OnDisconnectedAsync(Exception exception)
         {
             var userid = Context.GetContextHeaderValue("userid");
-            _connections.Remove(userid, Context.ConnectionId);
+            var connectionKey = userid.ConvertTo<TConnectionKey>();
+            _connections.Remove(connectionKey, Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
     }

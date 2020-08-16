@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace SignalRServer.POC.Extensions
 {
@@ -12,6 +13,11 @@ namespace SignalRServer.POC.Extensions
         public static TObject FromJson<TObject>(this string source)
         {
             return JsonConvert.DeserializeObject<TObject>(source);
+        }
+
+        public static TObject ConvertTo<TObject>(this string source)
+        {
+            return (TObject) Convert.ChangeType(source, typeof(TObject));
         }
     }
 }
