@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SignalRServer.POC.Connections;
 using SignalRServer.POC.Hubs;
 
 namespace SignalRServer.POC
@@ -17,8 +18,11 @@ namespace SignalRServer.POC
         {
             services.AddControllers();
             services.AddSignalR();
+
+            services.AddSingleton(new MessagingConnection());
+            services.AddSingleton<HubHelper<MessagingHub, MessagingConnection>>();
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();

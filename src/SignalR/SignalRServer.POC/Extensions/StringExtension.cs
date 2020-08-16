@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SignalRServer.POC.Entensions
+namespace SignalRServer.POC.Extensions
 {
     public static class StringExtension
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace SignalRServer.POC.Entensions
+namespace SignalRServer.POC.Extensions
 {
     public static class ContextExtensions
     {

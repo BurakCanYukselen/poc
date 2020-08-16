@@ -1,28 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using SignalRServer.POC.Entensions;
+using SignalRServer.POC.Connections;
+using SignalRServer.POC.Extensions;
 using SignalRServer.POC.Models;
 
 namespace SignalRServer.POC.Hubs
 {
     public abstract class AbstractHub<TMessageModel> : Hub
     {
-        private readonly ConnectionMapping<string> _connections = new ConnectionMapping<string>();
-        
-        public async Task Broadcast(AbstractHubMessage<TMessageModel> message)
+        private readonly ConnectionMapping<string> _connections;
+
+        public AbstractHub(ConnectionMapping<string> connections)
         {
-            var messageJson = message.ToJson();
-            await Clients.All.SendAsync("Receive", messageJson);
-        }
-        
-        public async Task Send(AbstractHubMessage<TMessageModel> message)
-        {
-            var messageJson = message.ToJson();
-            var connectionIds = _connections.GetConnections(message.From);
-            
-            foreach (var connectionId in connectionIds)
-                await Clients.User(connectionId).SendAsync("Receive", messageJson);
+            _connections = connections;
         }
 
         public override Task OnConnectedAsync()

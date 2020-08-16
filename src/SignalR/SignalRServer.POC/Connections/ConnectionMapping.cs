@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SignalRServer.POC.Hubs
+namespace SignalRServer.POC.Connections
 {
     public class ConnectionMapping<TKey>
     {
@@ -28,9 +28,8 @@ namespace SignalRServer.POC.Hubs
 
         public IEnumerable<string> GetConnections(TKey key)
         {
-            if (!_connections.TryGetValue(key, out var connections))
+            if (_connections.TryGetValue(key, out var connections))
                 return connections;
-
 
             return Enumerable.Empty<string>();
         }
