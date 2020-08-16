@@ -37,8 +37,8 @@ namespace SocketServer.POC.Middlewares
         {
             while (socket.State == WebSocketState.Open)
             {
-                var result = await socket.ReceiveAsync(BufferSize._4096.GetArraySegment(), CancellationToken.None);
-                var payload = result.GetContent(BufferSize._4096);
+                var result = await socket.ReceiveAsync(BufferSize._4096.GetArraySegment(out var buffer), CancellationToken.None);
+                var payload = result.GetContent(buffer);
                 
                 if (result.MessageType == WebSocketMessageType.Text)
                 {

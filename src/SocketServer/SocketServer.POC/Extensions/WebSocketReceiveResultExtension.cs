@@ -6,9 +6,8 @@ namespace SocketServer.POC.Extensions
 {
     public static class WebSocketReceiveResultExtension
     {
-        public static string GetContent(this WebSocketReceiveResult result, BufferSize bufferSize)
+        public static string GetContent(this WebSocketReceiveResult result, byte[] buffer)
         {
-            var buffer = new byte[(int)bufferSize];
             return Encoding.UTF8.GetString(buffer, 0, result.Count);
         } 
     }
