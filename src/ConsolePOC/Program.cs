@@ -1,4 +1,5 @@
-﻿using ConsolePOC.Extensions;
+﻿
+using ConsolePOC.Extensions;
 using Dapper;
 using Newtonsoft.Json;
 using System;
@@ -18,7 +19,6 @@ namespace ConsolePOC
 
         static void Main(string[] args)
         {
-            ListLeftJoinPOC();
         }
 
         #region Timezone Change from UTC to Target Timezone POC

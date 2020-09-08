@@ -1,0 +1,25 @@
+﻿{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/user/me/{everything}",
+      "DownstreamPathTemplate": "/api/user/{userid}/{everything}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthUser"
+      },
+      "ChangeDownstreamPathTemplate": {
+        "userid": "Claims[userid] > Value"
+      },
+      "AddHeadersToRequest": {
+        "UserChildren": "Claims[child] > value",
+        "UserRoles": "Claims[userRole] > value",
+        "UserPermissions": "Claims[permission] > value"
+      }
+    }
+  ]
+}

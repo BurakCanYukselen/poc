@@ -1,0 +1,14 @@
+﻿{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    }
+  ]
+}
