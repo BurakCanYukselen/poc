@@ -24,7 +24,7 @@ namespace Gateway
                 {
                     webBuilder.ConfigureAppConfiguration((hosting, config) =>
                     {
-                        config.AddOcelot("Services", hosting.HostingEnvironment);
+                        config.RegisterMultipleOcelotConfig("Services", hosting.HostingEnvironment);
                     });
                     webBuilder.UseStartup<Startup>();
                 });
