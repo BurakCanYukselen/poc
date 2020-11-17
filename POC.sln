@@ -35,6 +35,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer", "src\Ocelot\Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "src\Ocelot\UserService\UserService.csproj", "{B66C1580-A6EE-4314-9487-95EAB953E0C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{E563C194-C2C6-4683-9896-EEC1C10FD7A0}"
+ProjectSection(SolutionItems) = preProject
+	build_run.md = build_run.md
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docker.Service1.POC", "src\Docker\Docker.Service1.POC\Docker.Service1.POC.csproj", "{56EAC832-AFF6-4C88-9EA6-482EB15343C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docker.Service2.POC", "src\Docker\Docker.Service2.POC\Docker.Service2.POC.csproj", "{7EA223EE-360D-4B5A-AF07-A187F6EB71AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +94,14 @@ Global
 		{B66C1580-A6EE-4314-9487-95EAB953E0C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B66C1580-A6EE-4314-9487-95EAB953E0C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B66C1580-A6EE-4314-9487-95EAB953E0C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56EAC832-AFF6-4C88-9EA6-482EB15343C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56EAC832-AFF6-4C88-9EA6-482EB15343C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56EAC832-AFF6-4C88-9EA6-482EB15343C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56EAC832-AFF6-4C88-9EA6-482EB15343C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA223EE-360D-4B5A-AF07-A187F6EB71AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA223EE-360D-4B5A-AF07-A187F6EB71AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA223EE-360D-4B5A-AF07-A187F6EB71AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA223EE-360D-4B5A-AF07-A187F6EB71AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +117,8 @@ Global
 		{AB4EC268-A869-4E4B-A6E8-20292D53C147} = {8AF7BFB4-6BBC-4D3B-8AD3-1D5F54DCD728}
 		{94A26DEE-7C7B-4EF7-B3BE-15601BB8D5FC} = {8AF7BFB4-6BBC-4D3B-8AD3-1D5F54DCD728}
 		{B66C1580-A6EE-4314-9487-95EAB953E0C0} = {8AF7BFB4-6BBC-4D3B-8AD3-1D5F54DCD728}
+		{56EAC832-AFF6-4C88-9EA6-482EB15343C0} = {E563C194-C2C6-4683-9896-EEC1C10FD7A0}
+		{7EA223EE-360D-4B5A-AF07-A187F6EB71AE} = {E563C194-C2C6-4683-9896-EEC1C10FD7A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A6494AD-A21B-412B-AAEE-FF2877D6AE17}

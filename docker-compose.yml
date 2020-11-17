@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  dockerservice1poc:
+    image: dockerservice1poc
+    build:
+      context: .
+      dockerfile: src/Docker/Docker.Service1.POC/Dockerfile
+    ports:
+      - "5000:80"
+
+  dockerservice2poc:
+    image: dockerservice2poc
+    build:
+      context: .
+      dockerfile: src/Docker/Docker.Service2.POC/Dockerfile
+    ports:
+      - "5001:80"
