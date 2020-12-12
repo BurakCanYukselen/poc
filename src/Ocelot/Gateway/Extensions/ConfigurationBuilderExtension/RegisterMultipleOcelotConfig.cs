@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,13 +8,14 @@ using Ocelot.DependencyInjection;
 
 namespace Gateway.Extensions.ConfigurationBuilderExtension
 {
-    public static partial class ConfigurationBuilderExtension
+    public static class ConfigurationBuilderExtension
     {
         private const string OCELOT_FILE_NAME = "ocelot.merged.json";
 
         public static IConfigurationBuilder RegisterMultipleOcelotConfig(this IConfigurationBuilder builder, string relativePath,
             IWebHostEnvironment env)
         {
+            DeleteExistingMergedFile(relativePath);
             var routes = MergeConfigs(relativePath);
             SaveMergedConfigurationFile(routes, relativePath);
             builder.AddOcelot(relativePath, env);
@@ -50,6 +49,15 @@ namespace Gateway.Extensions.ConfigurationBuilderExtension
             var path = GetTargetPath(relativePath);
             var jsonObject = new {Routes = routes};
             File.WriteAllText(@$"{path}\{OCELOT_FILE_NAME}", Newtonsoft.Json.JsonConvert.SerializeObject(jsonObject));
+        }
+
+        public static void DeleteExistingMergedFile(string relativePath)
+        {
+            var path = GetTargetPath(relativePath);
+            var filePath = @$"{path}\{OCELOT_FILE_NAME}";
+            
+            if (File.Exists(filePath))
+                File.Delete(filePath);
         }
 
         public static string GetRelativePath(string path, string relativePath)

@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Gateway.Extensions.ConfigurationBuilderExtension;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Ocelot.DependencyInjection;
 
 namespace Gateway
 {
@@ -27,6 +20,10 @@ namespace Gateway
                         config.RegisterMultipleOcelotConfig("Services", hosting.HostingEnvironment);
                     });
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(cfg =>
+                    {
+                        cfg.Limits.MaxRequestHeadersTotalSize = int.MaxValue;
+                    });
                 });
     }
 }
